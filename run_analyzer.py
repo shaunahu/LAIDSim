@@ -5,4 +5,3 @@ if __name__ == "__main__":
 
     analyzer = PreferenceAnalyzer(config)
     analyzer.plot_health_state_share(id_scenario=0)
-    # analyzer.plot_health_state_share(id_scenario=1)
