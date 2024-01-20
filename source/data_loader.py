@@ -6,19 +6,19 @@ from Melodie import DataLoader
 from source import data_info
 
 if TYPE_CHECKING:
-    from source.scenario import PreferenceComplexScenario
+    from source.scenario import LLMScenario
 
-class PreferenceComplexDataLoader(DataLoader):
+class LLMDataLoader(DataLoader):
     def setup(self):
         self.load_dataframe(data_info.simulator_scenarios)
         self.load_dataframe(data_info.id_preference_state)
         self.generate_agent_dataframe()
 
     @staticmethod
-    def init_preference_state(scenario: "PreferenceComplexScenario"):
+    def init_preference_state(scenario: "LLMScenario"):
         state = 0
-        if np.random.uniform(0, 1) <= scenario.initial_infected_percentage:
-            state = 1
+        # if np.random.uniform(0, 1) <= scenario.initial_infected_pecentage:
+        #     state = 0
         return state
 
     def generate_agent_dataframe(self):
@@ -26,7 +26,7 @@ class PreferenceComplexDataLoader(DataLoader):
             data_info.agent_params, lambda scenario: scenario.agent_num
         ) as g:
 
-            def generator_func(scenario: "PreferenceComplexScenario") -> Dict[str, Any]:
+            def generator_func(scenario: "LLMScenario") -> Dict[str, Any]:
                 return {
                     "id": g.increment(),
                     "preference_state": self.init_preference_state(scenario)

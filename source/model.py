@@ -8,22 +8,23 @@ from Melodie import Model
 from Melodie import Edge,Network
 
 from source import data_info
-from source.agent import PreferenceComplexAgent
-from source.data_collector import PreferenceComplexDataCollector
-from source.environment import PreferenceComplexEnvironment
-from source.scenario import PreferenceComplexScenario
+from source.agent import LLMSocialAgent
+from source.data_collector import LLMSocialNetworkDataCollector
+from source.environment import LLMEnvironment
+from source.scenario import LLMScenario
+from source.tools import text2embedding, load_pickle
 
 if TYPE_CHECKING:
     from Melodie import AgentList
 
 
-class PreferenceModel(Model):
-    scenario: "PreferenceComplexScenario"
+class LLMModel(Model):
+    scenario: "LLMScenario"
 
     def create(self):
-        self.agents: "AgentList[PreferenceComplexAgent]" = self.create_agent_list(PreferenceComplexAgent)
-        self.environment: PreferenceComplexEnvironment = self.create_environment(PreferenceComplexEnvironment)
-        self.data_collector = self.create_data_collector(PreferenceComplexDataCollector)
+        self.agents: "AgentList[LLMSocialAgent]" = self.create_agent_list(LLMSocialAgent)
+        self.environment: LLMEnvironment = self.create_environment(LLMEnvironment)
+        self.data_collector = self.create_data_collector(LLMSocialNetworkDataCollector)
         self.network = self.create_network()
 
     def setup(self):
@@ -38,7 +39,7 @@ class PreferenceModel(Model):
                 network_params=self.scenario.get_network_params(),
             )
         else:
-            network = Network(model=PreferenceComplexAgent)
+            network = Network(model=LLMSocialAgent)
             self.network = network
             for agent in self.agents:
                 self.network.add_agent(agent)
@@ -55,31 +56,32 @@ class PreferenceModel(Model):
         for period in self.iterator(self.scenario.period_num):
             if period == 0:
                 self.initialisation()
-            self.environment.agents_infection(self.agents)
-            # self.environment.agents_state_transition(self.agents)
+            else:
+                self.environment.agents_infection(self.agents)
             self.environment.calc_population_infection_state(self.agents)
             self.data_collector.collect(period)
+        self.environment.information_analysis(self.agents)
         self.data_collector.save()
 
     def initialisation(self):
-        for agent in self.agents:
-            agent.repository = [random.randint(0, 5) for _ in range(self.scenario.item_num)]
-            if agent.preference_state == 1:
-                rating = random.randint(1, 5)
-                agent.repository.append(rating)
-            else:
-                agent.repository.append(0)
-            agent.repository = np.array(agent.repository)
-            # set initial state
-            if agent.preference_state == 1:
-                rated = agent.repository[agent.repository != 0]
-                min_rating = np.min(rated)
-                max_rating = np.max(rated)
-                if min_rating == max_rating:
-                    agent.preference_state == 0
-                else:
-                    pcl = (agent.repository[-1] - min_rating) / (max_rating - min_rating)
-                    if pcl > 0.5:
-                        agent.preference_state = 1
-                    else:
-                        agent.preference_state = 2
+        user_profiles = []
+        with open("data/input/user_profile.txt", "r") as file:
+            for line in file.readlines():
+                user_profile = line.split(": ")[1]
+                user_profiles.append(user_profile)
+
+        user_embeddings = load_pickle('data/input/user_embedding.pickle')
+
+        for index in range(len(self.agents)):
+            agent = self.agents[index]
+            agent.profile = user_profiles[index]
+            agent.embedding = user_embeddings[index]
+            index += 1
+
+        seedSet = random.sample(list(self.agents), self.scenario.seed_size)
+        for seed in seedSet:
+            seed.preference_state = 1
+            seed.post = self.scenario.influence_msg
+            seed.accept = self.scenario.influence_msg
+            seed.isSeed = True
+            print(f'Seed user: {seed.id}')

@@ -24,9 +24,8 @@ class PreferenceAnalyzer:
         df = self.db.read_dataframe("environment_result")
         df = df.loc[(df["id_scenario"] == id_scenario) & (df["id_run"] == id_run)]
         values_dict = {
-            "IA": df["s0"],
-            "PA": df["s1"],
-            "NA": df["s2"]
+            "inactive": df["s0"],
+            "active": df["s1"]
         }
         figure = plt.figure(figsize=(12, 6))
         ax = figure.add_axes((0.1, 0.1, 0.8, 0.8))

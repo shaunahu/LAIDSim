@@ -1,72 +1,62 @@
 import random
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import torch
 
 from typing import TYPE_CHECKING
 
 from Melodie import NetworkAgent
+from source.tools import text2embedding
+from source.LLM_module import generate_information
 
 if TYPE_CHECKING:
     from Melodie import AgentList
 
 
-class PreferenceComplexAgent(NetworkAgent):
-    scenario: "PreferenceComplexScenario"
+class LLMSocialAgent(NetworkAgent):
+    scenario: "LLMScenario"
 
     def set_category(self):
         self.category = 0
 
     def setup(self):
         self.preference_state: int = 0
-        self.repository: list = []
+        self.profile: str = ""
+        self.post: str = ""
+        self.accept: str = ""
+        self.embedding: np.ndarray = None
+        self.isSeed: bool = False
 
-    def infection(self, agents: "AgentList[PreferenceComplexAgent]"):
-        neighbors = self.network.get_neighbors(self)
+    def infection(self, agents: "AgentList[LLMSocialAgent]"):
+        try:
+            neighbors = self.network.get_neighbors(self)
 
-        PA_counter = 0
-        NA_counter = 0
-        IA_counter = 0
-        for neighbor_category, neighbor_id in neighbors:
-            neighbor_agent: "PreferenceComplexAgent" = agents.get_agent(neighbor_id)
-            if neighbor_agent.preference_state == 1:
-                PA_counter += 1
-            elif neighbor_agent.preference_state == 2:
-                NA_counter += 1
-            else:
-                IA_counter += 1
-        # print(f'PA: {PA_counter} | NA: {NA_counter} | IA: {IA_counter}')
-
-        for neighbor_category, neighbor_id in neighbors:
-            neighbor_agent: "PreferenceComplexAgent" = agents.get_agent(neighbor_id)
-            if neighbor_agent.preference_state != 0:
-                # common preference similarity
-                cps = cosine_similarity(self.repository.reshape(1, -1), neighbor_agent.repository.reshape(1, -1))
-                # influence probability
-                iip = cps * np.count_nonzero(self.repository) / np.count_nonzero(np.union1d(self.repository, neighbor_agent.repository))
-                rand = np.random.rand()
-                if rand < iip:
-                    self.repository[-1] = neighbor_agent.repository[-1]
-                    # state transition
-                    rated = self.repository[self.repository != 0]
-                    min_rating = np.min(rated)
-                    max_rating = np.max(rated)
-                    if min_rating == max_rating:
-                        pcl = 0.5
-                    else:
-                        pcl = (self.repository[-1] - min_rating) / (max_rating - min_rating)
-
-                    transit_prob_PA = 0.5 * pcl + 0.5 * (PA_counter / len(neighbors))
-                    transit_prob_NA = 0.5 * (1-pcl) + 0.5 * (NA_counter / len(neighbors))
-                    transit_prob_IA = 0.5 * (1-abs(pcl - 0.5)) + 0.5 * (IA_counter / len(neighbors))
+            for neighbor_category, neighbor_id in neighbors:
+                neighbor_agent: "LLMSocialAgent" = agents.get_agent(neighbor_id)
+                if neighbor_agent.preference_state == 1:
                     rand = np.random.rand()
+                    influence_prob = self.calculate_influence_prob(neighbor_agent)
+                    if rand < influence_prob:
+                        self.preference_state = neighbor_agent.preference_state
+                        self.accept = neighbor_agent.post
+                        if not self.isSeed:
+                            self.post = generate_information(self.accept, self.profile)
+        except Exception as e:
+            print(e)
 
-                    # print(f'PA: {transit_prob_PA} | NA: {transit_prob_NA} | IA: {transit_prob_IA}')
-                    if rand < transit_prob_PA:
-                        self.preference_state == 0
-                    elif rand < transit_prob_IA + transit_prob_PA:
-                        self.preference_state == 2
-                    else:
-                        self.preference_state = 1
+
+    def calculate_influence_prob(self, neighbor_agent):
+        ki = self.embedding
+        kj = neighbor_agent.embedding
+        cx = text2embedding(neighbor_agent.post)
+
+        social_influence = cosine_similarity(kj.reshape(1, -1), ki.reshape(1, -1))
+        content_influence = cosine_similarity(cx.reshape(1, -1), ki.reshape(1, -1))
+        influence_prob = (self.scenario.influence_param * social_influence
+                          + (1-self.scenario.influence_param) * content_influence)
+        return influence_prob
+
+
 
 
 
