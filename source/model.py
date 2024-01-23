@@ -60,8 +60,8 @@ class LLMModel(Model):
                 self.environment.agents_infection(self.agents)
             self.environment.calc_population_infection_state(self.agents)
             self.data_collector.collect(period)
-        self.environment.information_analysis(self.agents)
         self.data_collector.save()
+        self.environment.save_information_analysis(self.agents)
 
     def initialisation(self):
         user_profiles = []

@@ -26,6 +26,7 @@ class LLMSocialAgent(NetworkAgent):
         self.accept: str = ""
         self.embedding: np.ndarray = None
         self.isSeed: bool = False
+        self.influencer: LLMSocialAgent = None
 
     def infection(self, agents: "AgentList[LLMSocialAgent]"):
         try:
@@ -41,8 +42,10 @@ class LLMSocialAgent(NetworkAgent):
                         self.accept = neighbor_agent.post
                         if not self.isSeed:
                             self.post = generate_information(self.accept, self.profile)
+                            self.influencer = neighbor_agent
+                            # self.post = neighbor_agent.post
         except Exception as e:
-            print(e)
+            self.preference_state = 0
 
 
     def calculate_influence_prob(self, neighbor_agent):
