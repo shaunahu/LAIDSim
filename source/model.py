@@ -67,8 +67,9 @@ class LLMModel(Model):
         user_profiles = []
         with open("data/input/user_profile.txt", "r") as file:
             for line in file.readlines():
-                user_profile = line.split(": ")[1]
-                user_profiles.append(user_profile)
+                if line not in ['\n', '\r\n']:  # Check for the end of line
+                    user_profile = line.split(": ")[1]
+                    user_profiles.append(user_profile)
 
         user_embeddings = load_pickle('data/input/user_embedding.pickle')
 

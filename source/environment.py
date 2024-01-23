@@ -7,6 +7,7 @@ from source.tools import text2embedding
 
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 class LLMEnvironment(Environment):
     scenario: "LLMScenario"
 

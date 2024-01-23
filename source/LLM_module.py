@@ -1,6 +1,7 @@
 import openai
 from openai import OpenAI
-
+from dotenv import load_dotenv
+import os
 
 def generate_profile():
     # prompt = ", ".join(keywords)
@@ -10,7 +11,9 @@ def generate_profile():
              "Based on this example: User ID 15: Benjamin is a 48-year-old male who is a history enthusiast. He enjoys reading historical books and visiting museums to learn about different eras and civilizations."
     print(prompt)
 
-    api_key = "YOUR_API_KEY"
+    # api_key = "YOUR_API_KEY"
+    load_dotenv()
+    api_key = os.getenv("OPEN_AI_API_KEY")
     client = OpenAI(api_key=api_key)
 
     parameters = {
@@ -57,5 +60,5 @@ if __name__ == "__main__":
     text = generate_profile()
 
     print("Generated Text:\n", text)
-    with open("../data/input/user_profile_small.txt", "w") as file:
+    with open("../data/input/user_profile.txt", "w") as file:
         file.write(text)
