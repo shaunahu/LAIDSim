@@ -40,18 +40,13 @@ class LLMVisualizer(Visualizer):
         # Influence diffusion count line chart
         self.plot_charts.add_line_chart("Influence_diffusion_count_line").set_data_source({
             "active": lambda: self.model.environment.s0,
-            "inactive": lambda: self.model.environment.s1
+            "inactive": lambda: self.model.environment.s1,
+            # "alteration_degree": lambda: self.model.environment.alteration_degree
 
         })
 
         # Influence diffusion count bar chart
         self.plot_charts.add_barchart("Influence_diffusion_count_bar").set_data_source({
-            "active": lambda: self.model.environment.s0,
-            "inactive": lambda: self.model.environment.s1
-        })
-
-        # Influence diffusion count pie chart
-        self.plot_charts.add_piechart("Influence_diffusion_count_bar").set_data_source({
             "active": lambda: self.model.environment.s0,
             "inactive": lambda: self.model.environment.s1
         })

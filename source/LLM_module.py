@@ -3,6 +3,11 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
+# Load api key from .env file
+load_dotenv()
+api_key = os.getenv("OPEN_AI_API_KEY")
+
+
 def generate_profile():
     # prompt = ", ".join(keywords)
     prompt = "Generate user profiles for 20 users as a 50-word unique description, " \
@@ -12,8 +17,6 @@ def generate_profile():
     print(prompt)
 
     # api_key = "YOUR_API_KEY"
-    load_dotenv()
-    api_key = os.getenv("OPEN_AI_API_KEY")
     client = OpenAI(api_key=api_key)
 
     parameters = {
@@ -37,7 +40,7 @@ def generate_information(received, profile):
               f"generate one piece of information to spread your received information '{received}' " \
               f"based on your preference. In the first person aspect with no more than 50 words."
 
-    api_key = "YOUR_API_KEY"
+    # api_key = "YOUR_API_KEY"
     client = OpenAI(api_key=api_key)
 
     parameters = {

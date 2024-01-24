@@ -1,7 +1,7 @@
 {
     "Influence_diffusion_count_line": {
         "forceUpdate": false,
-        "updatedAt": "2024-01-15T11:57:14.817Z",
+        "updatedAt": "2024-01-24T04:18:12.091Z",
         "grid": {
             "left": "3%",
             "right": "4%",
@@ -10,18 +10,18 @@
             "containLabel": true
         },
         "title": {
-            "text": "",
-            "subtext": "Influence Diffusion Line Count"
+            "text": "Line Chart",
+            "subtext": "Diffusion line count"
         },
         "xAxis": {
             "type": "value",
             "scale": true,
-            "name": "",
+            "name": "Steps",
             "nameLocation": "end"
         },
         "yAxis": {
             "type": "value",
-            "name": "",
+            "name": "Counts",
             "nameLocation": "end"
         },
         "tooltip": {
@@ -32,49 +32,7 @@
         },
         "series": [
             {
-                "name": "IA",
-                "data": [],
-                "type": "line",
-                "smooth": true,
-                "lineStyle": {
-                    "color": "#c23531",
-                    "width": 2,
-                    "type": "solid"
-                },
-                "symbol": "emptyCircle",
-                "showSymbol": false,
-                "symbolSize": 4,
-                "itemStyle": {
-                    "color": "#c23531",
-                    "borderColor": "#000000",
-                    "borderType": "solid",
-                    "borderWidth": 1,
-                    "opacity": 1
-                }
-            },
-            {
-                "name": "PA",
-                "data": [],
-                "type": "line",
-                "smooth": true,
-                "lineStyle": {
-                    "color": "#2f4554",
-                    "width": 2,
-                    "type": "solid"
-                },
-                "symbol": "emptyCircle",
-                "showSymbol": false,
-                "symbolSize": 4,
-                "itemStyle": {
-                    "color": "#2f4554",
-                    "borderColor": "#000000",
-                    "borderType": "solid",
-                    "borderWidth": 1,
-                    "opacity": 1
-                }
-            },
-            {
-                "name": "NA",
+                "name": "active",
                 "data": [],
                 "type": "line",
                 "smooth": true,
@@ -88,6 +46,27 @@
                 "symbolSize": 4,
                 "itemStyle": {
                     "color": "#61a0a8",
+                    "borderColor": "#000000",
+                    "borderType": "solid",
+                    "borderWidth": 1,
+                    "opacity": 1
+                }
+            },
+            {
+                "name": "inactive",
+                "data": [],
+                "type": "line",
+                "smooth": true,
+                "lineStyle": {
+                    "color": "#d48265",
+                    "width": 2,
+                    "type": "solid"
+                },
+                "symbol": "emptyCircle",
+                "showSymbol": false,
+                "symbolSize": 4,
+                "itemStyle": {
+                    "color": "#d48265",
                     "borderColor": "#000000",
                     "borderType": "solid",
                     "borderWidth": 1,
@@ -98,20 +77,17 @@
         "legend": {
             "data": [
                 {
-                    "name": "IA"
+                    "name": "active"
                 },
                 {
-                    "name": "PA"
-                },
-                {
-                    "name": "NA"
+                    "name": "inactive"
                 }
             ],
             "orient": "horizontal",
             "show": true,
             "type": "plain",
             "left": "auto",
-            "right": "auto",
+            "right": "50",
             "top": "auto",
             "bottom": "auto"
         },
