@@ -78,8 +78,8 @@ class LLMModel(Model):
             agent.profile = user_profiles[index]
             agent.embedding = user_embeddings[index]
             index += 1
+        seedSet = random.sample(list(self.agents), int(self.scenario.seed_size))
 
-        seedSet = random.sample(list(self.agents), self.scenario.seed_size)
         for seed in seedSet:
             seed.preference_state = 1
             seed.post = self.scenario.influence_msg

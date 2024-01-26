@@ -94,5 +94,77 @@
         "textStyle": {
             "color": "#000000"
         }
+    },
+    "Average alteration_degree_line": {
+        "forceUpdate": false,
+        "updatedAt": "2024-01-26T04:08:28.539Z",
+        "grid": {
+            "left": "3%",
+            "right": "4%",
+            "bottom": "3%",
+            "top": "30%",
+            "containLabel": true
+        },
+        "title": {
+            "text": "Line Chart",
+            "subtext": ""
+        },
+        "xAxis": {
+            "type": "value",
+            "scale": true,
+            "name": "",
+            "nameLocation": "end"
+        },
+        "yAxis": {
+            "type": "value",
+            "name": "",
+            "nameLocation": "end"
+        },
+        "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+                "type": "cross"
+            }
+        },
+        "series": [
+            {
+                "name": "alteration_degree",
+                "data": [],
+                "type": "line",
+                "smooth": true,
+                "lineStyle": {
+                    "color": "#61a0a8",
+                    "width": 2,
+                    "type": "solid"
+                },
+                "symbol": "emptyCircle",
+                "showSymbol": false,
+                "symbolSize": 4,
+                "itemStyle": {
+                    "color": "#61a0a8",
+                    "borderColor": "#000000",
+                    "borderType": "solid",
+                    "borderWidth": 1,
+                    "opacity": 1
+                }
+            }
+        ],
+        "legend": {
+            "data": [
+                {
+                    "name": "alteration_degree"
+                }
+            ],
+            "orient": "horizontal",
+            "show": true,
+            "type": "plain",
+            "left": "auto",
+            "right": "auto",
+            "top": "auto",
+            "bottom": "auto"
+        },
+        "textStyle": {
+            "color": "#000000"
+        }
     }
 }
