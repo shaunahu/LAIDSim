@@ -1,5 +1,9 @@
 from typing import TYPE_CHECKING
 from Melodie import FloatParam, Visualizer
+import os
+import pandas as pd
+
+
 
 if TYPE_CHECKING:
     from source.model import LLMModel
@@ -13,7 +17,7 @@ class LLMVisualizer(Visualizer):
         self.params_manager.add_param(
             FloatParam(
                 name="seed_size",
-                value_range=(1, 10),  # make it dynamic; equal to the num of agents
+                value_range=(1, self.get_agents_num()),  # make it dynamic; equal to the num of agents
                 label="Seed Size (k)"))
 
         self.params_manager.add_param(
@@ -49,5 +53,9 @@ class LLMVisualizer(Visualizer):
             "alteration_degree": lambda: self.model.environment.alteration_degree
         })
 
-
+    @staticmethod
+    def get_agents_num() -> int:
+        data = pd.read_excel("data/input/SimulatorScenarios.xlsx", sheet_name="simulator_scenarios", engine="openpyxl")
+        agents_num = data['agent_num'].max()
+        return int(agents_num)
 
