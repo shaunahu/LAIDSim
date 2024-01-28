@@ -10,6 +10,7 @@ class LLMScenario(Scenario):
         self.initial_infected_pecentage: float = 0.0
         self.influence_msg: str = ""
         self.influence_param: float = 0.0
+        self.seed_size: float = 0.0
 
     def get_network_params(self):
         if self.network_type == "erdos_renyi_graph":

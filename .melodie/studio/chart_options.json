@@ -1,17 +1,17 @@
 {
     "Influence_diffusion_count_line": {
-        "forceUpdate": false,
-        "updatedAt": "2024-01-24T04:18:12.091Z",
+        "forceUpdate": true,
+        "updatedAt": "2024-01-28T12:40:41.466Z",
         "grid": {
             "left": "3%",
             "right": "4%",
-            "bottom": "3%",
+            "bottom": "10%",
             "top": "30%",
             "containLabel": true
         },
         "title": {
-            "text": "Line Chart",
-            "subtext": "Diffusion line count"
+            "text": "Diffusion line count",
+            "subtext": ""
         },
         "xAxis": {
             "type": "value",
@@ -87,7 +87,79 @@
             "show": true,
             "type": "plain",
             "left": "auto",
-            "right": "50",
+            "right": "60",
+            "top": "auto",
+            "bottom": "auto"
+        },
+        "textStyle": {
+            "color": "#000000"
+        }
+    },
+    "Average alteration_degree_line": {
+        "forceUpdate": false,
+        "updatedAt": "2024-01-28T12:40:17.334Z",
+        "grid": {
+            "left": "3%",
+            "right": "4%",
+            "bottom": "3%",
+            "top": "30%",
+            "containLabel": true
+        },
+        "title": {
+            "text": "Alteration Degree",
+            "subtext": ""
+        },
+        "xAxis": {
+            "type": "value",
+            "scale": true,
+            "name": "Steps",
+            "nameLocation": "end"
+        },
+        "yAxis": {
+            "type": "value",
+            "name": "Degree",
+            "nameLocation": "end"
+        },
+        "tooltip": {
+            "trigger": "axis",
+            "axisPointer": {
+                "type": "cross"
+            }
+        },
+        "series": [
+            {
+                "name": "alteration_degree",
+                "data": [],
+                "type": "line",
+                "smooth": true,
+                "lineStyle": {
+                    "color": "#61a0a8",
+                    "width": 2,
+                    "type": "solid"
+                },
+                "symbol": "emptyCircle",
+                "showSymbol": false,
+                "symbolSize": 4,
+                "itemStyle": {
+                    "color": "#61a0a8",
+                    "borderColor": "#000000",
+                    "borderType": "solid",
+                    "borderWidth": 1,
+                    "opacity": 1
+                }
+            }
+        ],
+        "legend": {
+            "data": [
+                {
+                    "name": "alteration_degree"
+                }
+            ],
+            "orient": "horizontal",
+            "show": true,
+            "type": "plain",
+            "left": "auto",
+            "right": "20%",
             "top": "auto",
             "bottom": "auto"
         },

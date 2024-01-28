@@ -63,7 +63,7 @@ class LLMEnvironment(Environment):
             alteration_degree = 1 - cosine_similarity(m_k.reshape(1, -1), m_k_altered.reshape(1, -1))
             alteration_degrees.append(alteration_degree)
         alteration_degrees = np.squeeze(np.array(alteration_degrees))
-        self.alteration_degree = np.mean(alteration_degrees)
+        self.alteration_degree = np.float64(np.mean(alteration_degrees))
         print(self.alteration_degree)
 
 
