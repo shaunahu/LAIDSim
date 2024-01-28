@@ -1,17 +1,17 @@
 {
     "Influence_diffusion_count_line": {
-        "forceUpdate": false,
-        "updatedAt": "2024-01-24T04:18:12.091Z",
+        "forceUpdate": true,
+        "updatedAt": "2024-01-28T12:40:41.466Z",
         "grid": {
             "left": "3%",
             "right": "4%",
-            "bottom": "3%",
+            "bottom": "10%",
             "top": "30%",
             "containLabel": true
         },
         "title": {
-            "text": "Line Chart",
-            "subtext": "Diffusion line count"
+            "text": "Diffusion line count",
+            "subtext": ""
         },
         "xAxis": {
             "type": "value",
@@ -87,7 +87,7 @@
             "show": true,
             "type": "plain",
             "left": "auto",
-            "right": "50",
+            "right": "60",
             "top": "auto",
             "bottom": "auto"
         },
@@ -97,7 +97,7 @@
     },
     "Average alteration_degree_line": {
         "forceUpdate": false,
-        "updatedAt": "2024-01-26T04:08:28.539Z",
+        "updatedAt": "2024-01-28T12:40:17.334Z",
         "grid": {
             "left": "3%",
             "right": "4%",
@@ -106,18 +106,18 @@
             "containLabel": true
         },
         "title": {
-            "text": "Line Chart",
+            "text": "Alteration Degree",
             "subtext": ""
         },
         "xAxis": {
             "type": "value",
             "scale": true,
-            "name": "",
+            "name": "Steps",
             "nameLocation": "end"
         },
         "yAxis": {
             "type": "value",
-            "name": "",
+            "name": "Degree",
             "nameLocation": "end"
         },
         "tooltip": {
@@ -159,7 +159,7 @@
             "show": true,
             "type": "plain",
             "left": "auto",
-            "right": "auto",
+            "right": "20%",
             "top": "auto",
             "bottom": "auto"
         },
