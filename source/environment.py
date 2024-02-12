@@ -64,7 +64,7 @@ class LLMEnvironment(Environment):
             alteration_degrees.append(alteration_degree)
         alteration_degrees = np.squeeze(np.array(alteration_degrees))
         self.alteration_degree = np.float64(np.mean(alteration_degrees))
-        print(self.alteration_degree)
+        # print(self.alteration_degree)
 
 
 

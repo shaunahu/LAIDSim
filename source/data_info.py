@@ -15,7 +15,7 @@ simulator_scenarios = DataFrameInfo(
         "network_param_directed": sqlalchemy.String(),
         "influence_msg": sqlalchemy.String(),
         "seed_size": sqlalchemy.Integer(),
-        "infection_prob": sqlalchemy.Float(),
+        # "infection_prob": sqlalchemy.Float(),
         "influence_param": sqlalchemy.Float()
     },
 )

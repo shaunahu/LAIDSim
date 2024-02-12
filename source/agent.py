@@ -42,6 +42,7 @@ class LLMSocialAgent(NetworkAgent):
                         self.accept = neighbor_agent.post
                         if not self.isSeed:
                             self.post = generate_information(self.accept, self.profile)
+                            print(f"Agent ID: {self.id}, Agent post: {self.post} ")
                             self.influencer = neighbor_agent
                             # self.post = neighbor_agent.post
         except Exception as e:
