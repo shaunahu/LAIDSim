@@ -1,7 +1,7 @@
 {
     "Influence_diffusion_count_line": {
         "forceUpdate": true,
-        "updatedAt": "2024-01-28T12:40:41.466Z",
+        "updatedAt": "2024-02-12T10:54:13.689Z",
         "grid": {
             "left": "3%",
             "right": "4%",
@@ -10,7 +10,7 @@
             "containLabel": true
         },
         "title": {
-            "text": "Diffusion line count",
+            "text": "Influence Coverage",
             "subtext": ""
         },
         "xAxis": {

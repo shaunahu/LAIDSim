@@ -10,7 +10,7 @@ api_key = os.getenv("OPEN_AI_API_KEY")
 
 def generate_profile():
     # prompt = ", ".join(keywords)
-    prompt = "Generate user profiles for 20 users as a 50-word unique description, " \
+    prompt = "Generate user profiles for 50 users as a 50-word unique description, " \
              "ages of these users follow Gaussian distribution, gender is half and half." \
              "Listed your response by user id." \
              "Based on this example: User ID 15: Benjamin is a 48-year-old male who is a history enthusiast. He enjoys reading historical books and visiting museums to learn about different eras and civilizations."
